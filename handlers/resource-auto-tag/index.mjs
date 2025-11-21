@@ -265,6 +265,7 @@ async function tagResourceByARN(ArnString, tagList) {
       
     await rgtaClient.send(command);
   }
+  console.log(`Tagged resource: ${ArnString}`);
 }
 
 async function getJSONfromFile() {
