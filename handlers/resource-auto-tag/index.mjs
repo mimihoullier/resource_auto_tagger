@@ -41,7 +41,7 @@ async function getResourceExplorer2List(resourceType, isGlobal) {
     MaxResults: Number('1000') 
   };
   console.log("resourceType " + resourceType);
-  //console.log(params);
+  console.log(params);
   try {
     const command = new SearchCommand(params);
     var res = await re2Client.send(command);
@@ -59,8 +59,8 @@ async function getCloudTrailRecord(eventName, eventSource) {
   var startDate = new Date(endDate);
   var minDuration = DURATION_IN_MINUTES;
   startDate.setMinutes(endDate.getMinutes() - minDuration);
-  //console.log("start date " + startDate);
-  //console.log("end date " + endDate);
+  console.log("start date " + startDate);
+  console.log("end date " + endDate);
   
   var params = {
     LookupAttributes: [
