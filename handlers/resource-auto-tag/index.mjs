@@ -40,8 +40,8 @@ async function getResourceExplorer2List(resourceType, isGlobal) {
     QueryString: `resourcetype:${resourceType} -tag.${TAG_KEY}=${TAG_VALUE} region:${region}`, 
     MaxResults: Number('1000') 
   };
-  //console.log("resourceType " + resourceType);
-  //console.log(params);
+  console.log("resourceType " + resourceType);
+  console.log(params);
   try {
     const command = new SearchCommand(params);
     var res = await re2Client.send(command);
