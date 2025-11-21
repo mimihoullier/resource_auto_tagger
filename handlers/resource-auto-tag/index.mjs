@@ -106,10 +106,10 @@ async function processResourceARN(ArnString, CTEvents) {
     }    
     if (foundIt) {
       console.log("Arn " + ArnString + " is found in CloudTrail ");
-      //console.log(CTEvents[idx]);
+      console.log(CTEvents[idx]);
       
       var tagList = await generateTaggingFromCloudTrail(CTEvents[idx]);
-      //console.log("Generated tagList " + JSON.stringify(tagList));
+      console.log("Generated tagList " + JSON.stringify(tagList));
       
       await tagResourceByARN(ArnString, tagList);
       
@@ -285,7 +285,7 @@ export const handler = async (event) => {
   // Get list of all resource type from mapping file stored in S3
   var jsonMapping = await getJSONfromFile();
   var res = jsonMapping.Mapping;
-  //console.log(res);
+  console.log(res);
   
   if (res == null || res == '') {
     console.error('Error in reading mapping.json')
