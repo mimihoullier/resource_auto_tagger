@@ -8,7 +8,7 @@
     },
     {
       "REResourceType": "AWS::S3::Bucket",
-      "Global": true,
+      "Global": false,
       "CTEventName": "CreateBucket",
       "CTEventSource": "s3.amazonaws.com"
     },
