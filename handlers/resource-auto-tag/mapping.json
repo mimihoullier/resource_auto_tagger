@@ -1,0 +1,22 @@
+{
+  "Mapping": [
+    {
+      "REResourceType": "AWS::EC2::Instance",
+      "Global": false,
+      "CTEventName": "RunInstances",
+      "CTEventSource": "ec2.amazonaws.com"
+    },
+    {
+      "REResourceType": "AWS::S3::Bucket",
+      "Global": true,
+      "CTEventName": "CreateBucket",
+      "CTEventSource": "s3.amazonaws.com"
+    },
+    {
+      "REResourceType": "AWS::IAM::Role",
+      "Global": true,
+      "CTEventName": "CreateRole",
+      "CTEventSource": "iam.amazonaws.com"
+    }
+  ]
+}

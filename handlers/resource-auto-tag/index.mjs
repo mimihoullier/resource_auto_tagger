@@ -3,18 +3,18 @@ import { CloudTrailClient, LookupEventsCommand } from "@aws-sdk/client-cloudtrai
 import { IAMClient, ListUserTagsCommand, ListRoleTagsCommand } from "@aws-sdk/client-iam";
 import { SSMClient, GetParametersByPathCommand } from "@aws-sdk/client-ssm";
 import { ResourceGroupsTaggingAPIClient, TagResourcesCommand } from "@aws-sdk/client-resource-groups-tagging-api";
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { readFile } from "fs/promises";
 
 const re2Client = new ResourceExplorer2Client();
 const ctClient = new CloudTrailClient();
 const iamClient = new IAMClient();
 const ssmClient = new SSMClient();
 const rgtaClient = new ResourceGroupsTaggingAPIClient();
-const s3Client = new S3Client();
 
 const TAG_KEY = 'blog';
 const TAG_VALUE = 'ResourceAutoTagEnhanced';
 const DURATION_IN_MINUTES = 14400;
+const MAPPING_FILE_PATH = process.env.MAPPING_FILE_PATH;
 
 async function arnFinder(jsonObject, searchedArn, searchedId) {
   if (Array.isArray(jsonObject)) {
@@ -267,27 +267,22 @@ async function tagResourceByARN(ArnString, tagList) {
   }
 }
 
-async function getJSONfromS3() {
-
-  const command = new GetObjectCommand({
-    Key: "mapping.json",
-    Bucket: process.env.bucketName
-  });
-  const response = await s3Client.send(command);
+async function getJSONfromFile() {
   try {
-    const jsonString = await response.Body?.transformToString();
-    const json = JSON.parse(jsonString ?? '')
-    return json
+    const filePath = MAPPING_FILE_PATH || new URL('./mapping.json', import.meta.url);
+    const jsonString = await readFile(filePath, 'utf-8');
+    const json = JSON.parse(jsonString ?? '');
+    return json;
   } catch (error) {
-    console.error('error parsing json', error)
-    return null
+    console.error('error parsing local mapping file', error);
+    return null;
   }
 }
 
 export const handler = async (event) => {
     
   // Get list of all resource type from mapping file stored in S3
-  var jsonMapping = await getJSONfromS3();
+  var jsonMapping = await getJSONfromFile();
   var res = jsonMapping.Mapping;
   //console.log(res);
   

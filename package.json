@@ -7,6 +7,7 @@
   "scripts": {
     "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
     "cdk": "cdk",
+    "start": "node index.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -15,6 +16,11 @@
     "jest": "^29.6.3"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudtrail": "^3.414.0",
+    "@aws-sdk/client-iam": "^3.414.0",
+    "@aws-sdk/client-resource-explorer-2": "^3.414.0",
+    "@aws-sdk/client-resource-groups-tagging-api": "^3.414.0",
+    "@aws-sdk/client-ssm": "^3.414.0",
     "aws-cdk-lib": "2.93.0",
     "cdk-nag": "^2.27.191",
     "constructs": "^10.0.0"
